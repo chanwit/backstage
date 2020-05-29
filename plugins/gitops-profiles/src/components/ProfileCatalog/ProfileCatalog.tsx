@@ -128,8 +128,7 @@ const ProfileCatalog: FC<{}> = () => {
   const [runStatus, setRunStatus] = useState<Status[]>([]);
   const [runLink, setRunLink] = useState<string>('');
 
-  const baseURL: string = 'http://localhost:8080';
-  const api = new GitOpsApi(baseURL);
+  const api = new GitOpsApi(); // when debug, use GitOpsApi(baseURL)
 
   useEffect(() => {
     if (pollingLog) {

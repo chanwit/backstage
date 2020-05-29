@@ -92,7 +92,7 @@ export class FetchError extends Error {
 }
 
 export class GitOpsApi {
-  constructor(public url: string) {}
+  constructor(public url: string = '') {}
 
   private async fetch<T = any>(path: string, init?: RequestInit): Promise<T> {
     const resp = await fetch(`${this.url}${path}`, init);

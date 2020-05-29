@@ -46,8 +46,8 @@ const ClusterPage: FC<{}> = () => {
   const [runLink, setRunLink] = useState<string>('');
   const [showProgress, setShowProgress] = useState(true);
 
-  const baseURL: string = 'http://localhost:8080';
-  const api = new GitOpsApi(baseURL);
+  // const baseURL: string = 'http://localhost:8080';
+  const api = new GitOpsApi(); // when debug, use GitOpsAPI(baseURL)
 
   const columns = [
     { field: 'status', title: 'Status' },
