@@ -1,0 +1,75 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: backstage
+  name: backstage
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      containers:
+      - image: SPOTIFY_BACKSTAGE_IMAGE
+        imagePullPolicy: Always
+        name: backstage
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: gitops-api
+  name: gitops-api
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitops-api
+  template:
+    metadata:
+      labels:
+        app: gitops-api
+    spec:
+      containers:
+      - image: chanwit/gitops-api:latest
+        imagePullPolicy: Always
+        name: gitops-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: backstage
+  name: backstage
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: backstage
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gitops-api
+  name: gitops-api
+  namespace: default
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: gitops-api
+  type: ClusterIP
